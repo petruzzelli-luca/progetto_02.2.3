@@ -1,0 +1,12 @@
+<div class="container">
+  <button (click)="goBack()" class="back-btn">← Torna ai tipi</button>
+  <h2>Pokémon di tipo: <span class="type-name">{{ typeName | titlecase }}</span></h2>
+
+  <div *ngIf="loading" class="loading">Caricamento...</div>
+
+  <ul class="pokemon-list" *ngIf="!loading">
+    <li *ngFor="let p of pokemonList" (click)="selectPokemon(p.url)" class="pokemon-item">
+      {{ p.name | titlecase }}
+    </li>
+  </ul>
+</div>

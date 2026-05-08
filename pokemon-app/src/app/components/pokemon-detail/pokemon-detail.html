@@ -1,0 +1,36 @@
+<div class="container" *ngIf="!loading && pokemon">
+  <button (click)="goBack()" class="back-btn">← Torna ai tipi</button>
+
+  <div class="card">
+    <h1>{{ pokemon.name | titlecase }}</h1>
+    <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="sprite" />
+
+    <div class="info-section">
+      <h3>Informazioni generali</h3>
+      <p><strong>ID:</strong> {{ pokemon.id }}</p>
+      <p><strong>Altezza:</strong> {{ pokemon.height / 10 }} m</p>
+      <p><strong>Peso:</strong> {{ pokemon.weight / 10 }} kg</p>
+      <p><strong>Esperienza base:</strong> {{ pokemon.base_experience }}</p>
+    </div>
+
+    <div class="info-section">
+      <h3>Tipi</h3>
+      <span *ngFor="let t of pokemon.types" class="type-badge">
+        {{ t.type.name | titlecase }}
+      </span>
+    </div>
+
+    <div class="info-section">
+      <h3>Statistiche</h3>
+      <div *ngFor="let s of pokemon.stats" class="stat-row">
+        <span class="stat-name">{{ s.stat.name | titlecase }}</span>
+        <div class="stat-bar-bg">
+          <div class="stat-bar" [style.width.%]="(s.base_stat / 255) * 100"></div>
+        </div>
+        <span class="stat-val">{{ s.base_stat }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">Caricamento...</div>
