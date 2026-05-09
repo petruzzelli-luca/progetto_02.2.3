@@ -49,9 +49,18 @@ h2 {
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   color: #1d3557;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pokemon-item:hover {
   background: #a8dadc;
   transform: scale(1.03);
+}
+
+.pokemon-image {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
 }

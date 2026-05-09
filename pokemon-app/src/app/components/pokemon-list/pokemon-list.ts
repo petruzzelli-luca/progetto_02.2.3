@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
-import { PokemonSummary } from '../../models/pokemon-type.model';
+import { Pokemon } from '../../models/pokemon.model';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -13,7 +13,7 @@ import { PokemonSummary } from '../../models/pokemon-type.model';
 })
 export class PokemonListComponent implements OnInit {
   typeName: string = '';
-  pokemonList: PokemonSummary[] = [];
+  pokemonList: Pokemon[] = [];
   loading: boolean = false;
 
   constructor(
@@ -32,20 +32,27 @@ export class PokemonListComponent implements OnInit {
     this.pokemonService.getTypeDetail(this.typeName).subscribe({
       next: (data) => {
         // Limitiamo a 20 pokémon per non sovraccaricare
-        this.pokemonList = data.pokemon.slice(0, 20).map(p => p.pokemon);
-        this.loading = false;
+        const summaries = data.pokemon.slice(0, 20).map(p => p.pokemon);
+        const urls = summaries.map(s => s.url);
+        this.pokemonService.getPokemonByUrls(urls).subscribe({
+          next: (pokemons) => {
+            this.pokemonList = pokemons;
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Errore nel caricamento dei Pokémon:', err);
+            this.loading = false;
+          }
+        });
       },
       error: (err) => {
-        console.error(err);
+        console.error('Errore nel caricamento del tipo:', err);
         this.loading = false;
       }
     });
   }
 
-  selectPokemon(url: string): void {
-    // Estraiamo l'ID dall'URL del pokemon
-    const parts = url.split('/').filter(p => p);
-    const id = parts[parts.length - 1];
+  selectPokemon(id: number): void {
     this.router.navigate(['/pokemon', id]);
   }
 
