@@ -13,7 +13,9 @@ export class PokemonService {
   // Mostreremo solo 7 tipi come richiesto
   private selectedTypes = ['normal', 'ground', 'flying', 'water', 'fire', 'grass', 'electric'];
 
-  constructor(private http: HttpClient) {} //
+  constructor(private http: HttpClient) {
+    console.log('🟢 PokemonService initialized');
+  }
 
   getTypes(): Observable<PokemonTypeList> {  // Recupera la lista dei tipi di Pokémon
     return this.http.get<PokemonTypeList>(`${this.baseUrl}/type?limit=20`);
@@ -24,7 +26,9 @@ export class PokemonService {
   }
 
   getTypeDetail(name: string): Observable<PokemonTypeDetail> {  // Recupera i dettagli di un tipo specifico, inclusi i Pokémon associati
-    return this.http.get<PokemonTypeDetail>(`${this.baseUrl}/type/${name}`);
+    const url = `${this.baseUrl}/type/${name}`;
+    console.log('Fetching type detail from:', url);
+    return this.http.get<PokemonTypeDetail>(url);
   }
 
   getPokemonByUrl(url: string): Observable<Pokemon> {  // Recupera i dettagli di un Pokémon specifico utilizzando l'URL fornito
