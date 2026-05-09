@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-type-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './type-list.html',
   styleUrls: ['./type-list.css']
 })

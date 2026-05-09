@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable,  } from 'rxjs';
 import { PokemonTypeList, PokemonTypeDetail } from '../models/pokemon-type.model';
 import { Pokemon } from '../models/pokemon.model';
 
@@ -35,8 +35,4 @@ export class PokemonService {
     return this.http.get<Pokemon>(`${this.baseUrl}/pokemon/${id}`);
   }
 
-  getPokemonByUrls(urls: string[]): Observable<Pokemon[]> {
-    const requests = urls.map(url => this.http.get<Pokemon>(url));
-    return forkJoin(requests);
-  }
 }
