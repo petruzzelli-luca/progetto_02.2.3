@@ -24,25 +24,23 @@ export class PokemonListComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    const typeName = this.route.snapshot.paramMap.get('typeName') || '';
+  ngOnInit(): void { 
+    const typeName = this.route.snapshot.paramMap.get('typeName') || ''; // Recupera il nome del tipo di Pokémon dalla rotta
     this.typeName = typeName;
-    this.loading = true;
-    this.pokemonService.getTypeDetail(this.typeName).subscribe({
-      next: (data) => {
-        if (data && data.pokemon) {
-          this.pokemonList = data.pokemon.slice(0, 50).map(p => p.pokemon);
-        }
+    this.loading = true; 
+    this.pokemonService.getTypeDetail(this.typeName).subscribe({ 
+      next: (data) => { 
+        this.pokemonList = data.pokemon.map(p => p.pokemon); // Estrae la lista dei Pokémon associati al tipo
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.markForCheck(); // Aggiorna la vista dopo aver ricevuto i dati
       },
       
     });
   }
 
   selectPokemon(url: string): void {
-    const parts = url.split('/').filter(p => p);
-    const id = parts[parts.length - 1];
+    const parts = url.split('/').filter(p => p); // Divide l'URL in parti e filtra eventuali stringhe vuote
+    const id = parts[parts.length - 1]; // Estrae l'ID del Pokémon dall'URL
     this.router.navigate(['/pokemon', id]);
   }
 

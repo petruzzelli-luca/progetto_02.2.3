@@ -14,29 +14,27 @@ export class PokemonService {
   private selectedTypes = ['normal', 'ground', 'flying', 'water', 'fire', 'grass', 'electric'];
 
   constructor(private http: HttpClient) {
-    console.log('🟢 PokemonService initialized');
   }
 
   getTypes(): Observable<PokemonTypeList> {  // Recupera la lista dei tipi di Pokémon
-    return this.http.get<PokemonTypeList>(`${this.baseUrl}/type?limit=20`);
+    return this.http.get<PokemonTypeList>(`${this.baseUrl}/type`); 
   }
 
-  getSelectedTypes(): string[] {  // Restituisce i tipi selezionati (normal, ground, flying)
-    return this.selectedTypes;
+  getSelectedTypes(): string[] {   //
+    return this.selectedTypes; // Restituisce la lista dei tipi selezionati 
   }
 
   getTypeDetail(name: string): Observable<PokemonTypeDetail> {  // Recupera i dettagli di un tipo specifico, inclusi i Pokémon associati
     const url = `${this.baseUrl}/type/${name}`;
-    console.log('Fetching type detail from:', url);
     return this.http.get<PokemonTypeDetail>(url);
   }
 
   getPokemonByUrl(url: string): Observable<Pokemon> {  // Recupera i dettagli di un Pokémon specifico utilizzando l'URL fornito
-    return this.http.get<Pokemon>(url);
+    return this.http.get<Pokemon>(url); // Utilizza l'URL del Pokémon per recuperare i dettagli del Pokémon
   }
 
   getPokemonById(id: string): Observable<Pokemon> {   // Recupera i dettagli di un Pokémon specifico utilizzando il suo ID
-    return this.http.get<Pokemon>(`${this.baseUrl}/pokemon/${id}`);
+    return this.http.get<Pokemon>(`${this.baseUrl}/pokemon/${id}`); // Utilizza l'ID del Pokémon per costruire l'URL e recuperare i dettagli del Pokémon
   }
 
 }

@@ -14,10 +14,10 @@ export class TypeListComponent {
   types: string[] = [];
 
   constructor(private pokemonService: PokemonService, private router: Router) {
-    this.types = this.pokemonService.getSelectedTypes();
+    this.types = this.pokemonService.getSelectedTypes(); // Recupera la lista dei tipi di Pokémon disponibili dal servizio PokemonService
   }
 
-  selectType(typeName: string): void {
-    this.router.navigate(['/types', typeName]);
+  selectType(typeName: string): void { 
+    this.router.navigate(['/types', typeName]); 
   }
 }

@@ -2,8 +2,10 @@
   <h1>🔴 Pokémon Type Explorer</h1>
   <h2>Seleziona una categoria</h2>
   <ul class="type-list">
-    <li *ngFor="let type of types" (click)="selectType(type)" class="type-item">
-      {{ type | titlecase }}
-    </li>
+    @for (type of types; track type) {
+      <li (click)="selectType(type)" class="type-item"> 
+        {{ type }} 
+      </li>
+    }
   </ul>
 </div>
